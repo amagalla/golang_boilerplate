@@ -14,7 +14,7 @@ clean:
 	rm -f $(APP_NAME)
 
 # Run the server locally
-run:
+run-local:
 	go run $(APP_SRC)
 
 # Run the server locally with live reloading using gin
@@ -38,7 +38,7 @@ docker-build-compose:
 	docker-compose -f $(DOCKER_COMPOSE) build
 
 # Run the application with docker-compose
-docker-run-compose: docker-build-compose
+run: docker-build-compose
 	docker-compose -f $(DOCKER_COMPOSE) up
 
 # Stop the Docker containers

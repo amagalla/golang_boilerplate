@@ -1,32 +1,12 @@
-# Use a minimal base image
-FROM golang:alpine AS build
+FROM golang:latest
 
-# Set the working directory inside the container
 WORKDIR /app
-
-# Copy the Go module files
 COPY go.mod go.sum ./
-
-# Download the Go modules
 RUN go mod download
 
-# Copy the source code into the container
+RUN go install github.com/githubnemo/CompileDaemon
+RUN go get github.com/gin-gonic/gin
+
 COPY . .
 
-# Build the Go application
-RUN go build -o app .
-
-# Use a lightweight base image
-FROM alpine
-
-# Copy the built executable from the build stage
-COPY --from=build /app/app /app/app
-
-# Expose the port on which the application will run
-EXPOSE 8080
-
-# Set the working directory inside the container
-WORKDIR /app
-
-# Run the Go application
-CMD ["./app"]
+ENTRYPOINT CompileDaemon --build="go build -o main main.go" --command=./main

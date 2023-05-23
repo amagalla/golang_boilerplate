@@ -1,4 +1,4 @@
-.PHONY: all clean build run stop
+.PHONY: all clean build run stop test docker-build docker-run docker-stop
 
 APP_NAME := main
 APP_SRC := main.go
@@ -13,15 +13,50 @@ build:
 clean:
 	rm -f $(APP_NAME)
 
-# Run the server locally with live reloading using Gin
+# Run the server locally
 run:
-	gin -i --all run $(APP_SRC)
+	go run $(APP_SRC)
 
-# Build and run the server using Docker Compose
-run-docker:
-	make build
-	docker-compose -f $(DOCKER_COMPOSE) up --build
+# Run the server locally with live reloading using gin
+run-live:
+	gin run $(APP_SRC)
+
+# Build the Docker image
+docker-build:
+	docker build -t $(APP_NAME) .
+
+# Run the server using Docker
+docker-run: docker-build
+	docker run -p $(APP_PORT):$(APP_PORT) $(APP_NAME)
+
+docker-stop:
+	docker stop $$(docker ps -q --filter ancestor=$(APP_NAME))
 
 # Stop the Docker containers
 stop:
 	docker-compose -f $(DOCKER_COMPOSE) down
+
+# Run tests
+test:
+	go test -v ./...
+
+# Run all targets
+all: clean build test docker-run
+
+# Help target
+help:
+	@echo "Available targets:"
+	@echo "  build         - Build the application"
+	@echo "  clean         - Clean build artifacts"
+	@echo "  run           - Run the server locally"
+	@echo "  run-live      - Run the server locally with live reloading using gin"
+	@echo "  docker-build  - Build the Docker image"
+	@echo "  docker-run    - Run the server using Docker"
+	@echo "  docker-stop   - Stop the Docker containers"
+	@echo "  stop          - Stop the Docker containers"
+	@echo "  test          - Run tests"
+	@echo "  all           - Clean, build, test, and run using Docker"
+	@echo "  help          - Show this help message"
+
+# Default target
+default: help

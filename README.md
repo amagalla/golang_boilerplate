@@ -22,10 +22,21 @@ Add Gin Path at end of file
     
 ## Run Locally
 
-Clone the project
-
-Install dependencies
-
 ```bash
   gin run main.go
+```
+
+## Run Docker-Compose
+Run application through docker-compose
+
+```bash
+  make run
+```
+
+## Command
+
+List of useful commands
+
+```bash
+  make help
 ```

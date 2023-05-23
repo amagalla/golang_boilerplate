@@ -6,7 +6,7 @@ APP_PORT := 8080
 DOCKER_COMPOSE := docker-compose.yml
 
 # Build the application
-build:
+build-local:
 	go build -o $(APP_NAME) $(APP_SRC)
 
 # Clean build artifacts
@@ -34,11 +34,11 @@ docker-stop:
 	docker stop $$(docker ps -q --filter ancestor=$(APP_NAME))
 
 # Build the application with docker-compose
-docker-build-compose:
+build:
 	docker-compose -f $(DOCKER_COMPOSE) build
 
 # Run the application with docker-compose
-run: docker-build-compose
+run: build
 	docker-compose -f $(DOCKER_COMPOSE) up
 
 # Stop the Docker containers
@@ -55,15 +55,15 @@ all: clean build test docker-run
 # Help target
 help:
 	@echo "Available targets:"
-	@echo "  build               - Build the application"
+	@echo "  build-local         - Build the application"
 	@echo "  clean               - Clean build artifacts"
-	@echo "  run                 - Run the server locally"
+	@echo "  run-local           - Run the server locally"
 	@echo "  run-live            - Run the server locally with live reloading using gin"
 	@echo "  docker-build        - Build the Docker image"
 	@echo "  docker-run          - Run the server using Docker"
 	@echo "  docker-stop         - Stop the Docker containers"
-	@echo "  docker-build-compose- Build the application with docker-compose"
-	@echo "  docker-run-compose  - Run the application with docker-compose"
+	@echo "  build		      - Build the application with docker-compose"
+	@echo "  run  		      - Run the application with docker-compose"
 	@echo "  stop                - Stop the Docker containers"
 	@echo "  test                - Run tests"
 	@echo "  all                 - Clean, build, test, and run using Docker"

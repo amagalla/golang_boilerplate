@@ -2,8 +2,8 @@
 
 This is a sample boilerplate which includ Golang/Gin, Docker, and Makefile
 
-
 ## Gin Install
+
 Install Gin
 
 ```bash
@@ -16,10 +16,10 @@ Add Gin Path at end of file
   cd
 
   code .zshrc
-  
+
   export PATH=$PATH:$HOME/go/bin
 ```
-    
+
 ## Run Locally
 
 ```bash
@@ -27,6 +27,7 @@ Add Gin Path at end of file
 ```
 
 ## Run Docker-Compose
+
 Run application through docker-compose
 
 ```bash
@@ -40,3 +41,11 @@ List of useful commands
 ```bash
   make help
 ```
+
+## Server
+
+Server runs on PORT 3000
+
+## Client
+
+Client run on PORT 8080

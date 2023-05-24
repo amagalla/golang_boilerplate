@@ -1,12 +1,41 @@
 ---
 version: "3.7"
 services:
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile_React
+    image: react-app
+    container_name: react-container
+    volumes:
+      - .:/app
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    stdin_open: true
+    tty: true
+    networks:
+      - app
+    command: npm run client
+    depends_on:
+      - server
   server:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: server
+    expose:
+      - "3000"
     ports:
       - "3000:3000"
     volumes:
       - ./:/app
     environment:
       PORT: "3000"
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge

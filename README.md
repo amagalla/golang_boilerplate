@@ -28,7 +28,7 @@ Add Gin Path at end of file
 
 ## Run Docker-Compose
 
-Run application through docker-compose
+Installs node dependencies, build's go containers, and launches the application
 
 ```bash
   make run

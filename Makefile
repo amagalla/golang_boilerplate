@@ -1,4 +1,4 @@
-.PHONY: all clean build run stop test docker-build docker-run docker-stop docker-build-compose
+.PHONY: all clean build run stop test docker-build docker-run docker-stop docker-build-compose npm
 
 APP_NAME := main
 APP_SRC := main.go
@@ -33,12 +33,15 @@ docker-run: docker-build
 docker-stop:
 	docker stop $$(docker ps -q --filter ancestor=$(APP_NAME))
 
+npm:
+	npm install
+
 # Build the application with docker-compose
 build:
 	docker-compose -f $(DOCKER_COMPOSE) build
 
 # Run the application with docker-compose
-run: build
+run: npm build
 	docker-compose -f $(DOCKER_COMPOSE) up
 
 # Stop the Docker containers

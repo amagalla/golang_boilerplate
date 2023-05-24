@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 
@@ -16,8 +15,9 @@ func main() {
 	router.SetTrustedProxies([]string{"127.0.0.1"})
 
 	router.GET("/", func(c *gin.Context) {
-		fmt.Println("Inside home route!")
-		c.String(http.StatusOK, "Hello, Gin!")
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Hello, World!",
+		})
 	})
 
 	port := os.Getenv("PORT")

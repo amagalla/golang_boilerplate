@@ -4,18 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -L app/lib/server.js",
     "client": "webpack serve --config webpack/webpack.config.js --env env=dev",
-    "build": "webpack --config webpack/webpack.config.js --env env=prod",
-    "install-app": "sudo docker-compose build",
-    "serve": "sudo docker-compose up",
-    "mysql": "sudo docker exec -it mysql-container bash",
-    "stop-containers": "docker stop `docker ps -qa`",
-    "remove-containers": "docker rm `docker ps -qa`",
-    "remove-images": "docker rmi -f `docker images -qa`",
-    "remove-volumes": "docker volume rm $(docker volume ls -qf)",
-    "sudo-docker-prune": "sudo docker container prune -f",
-    "docker-nuke": "npm run stop-containers && npm run remove-containers && npm run remove-images && npm run remove-volumes"
+    "build": "webpack --config webpack/webpack.config.js --env env=prod"
   },
   "keywords": [],
   "author": "",

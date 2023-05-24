@@ -1,38 +1,13 @@
-.PHONY: all clean build run stop test docker-build docker-run docker-stop docker-build-compose npm
+.PHONY: all clean build run stop test docker-build docker-run docker-stop docker-build-compose npm mysql docker-nuke
 
 APP_NAME := main
 NODE_MODULES := node_modules
-APP_SRC := main.go
-APP_PORT := 3000
+BUILD := build
 DOCKER_COMPOSE := docker-compose.yml
-
-# Build the application
-build-local:
-	go build -o $(APP_NAME) $(APP_SRC)
 
 # Clean build artifacts
 clean:
-	rm -rf $(APP_NAME) $(NODE_MODULES)
-
-# Run the server locally
-run-local:
-	go run $(APP_SRC)
-
-# Run the server locally with live reloading using gin
-run-live:
-	gin run $(APP_SRC)
-
-# Build the Docker image
-docker-build:
-	docker build -t $(APP_NAME) .
-
-# Run the server using Docker
-docker-run: docker-build
-	docker run -p $(APP_PORT):$(APP_PORT) $(APP_NAME)
-
-# Stop the Docker container
-docker-stop:
-	docker stop $$(docker ps -q --filter ancestor=$(APP_NAME))
+	rm -rf $(APP_NAME) $(NODE_MODULES) $(BUILD)
 
 npm:
 	npm install
@@ -44,6 +19,16 @@ build:
 # Run the application with docker-compose
 run: npm build
 	docker-compose -f $(DOCKER_COMPOSE) up
+
+# Navigate througy mysql database
+mysql:
+	docker exec -it mysql-container bash
+
+docker-nuke:
+	docker stop `docker ps -qa`
+	docker rm `docker ps -qa`
+	docker rmi -f `docker images -qa`
+	docker volume rm $(docker volume ls -qf)
 
 # Stop the Docker containers
 stop:
@@ -72,6 +57,8 @@ help:
 	@echo "  test                - Run tests"
 	@echo "  all                 - Clean, build, test, and run using Docker"
 	@echo "  npm		      - installs node dependencies"
+	@echo "  mysql		      - navigate through mysql database"
+	@echo "  docker-nuke	      - nukes out all docker instances"
 	@echo "  help                - Show this help message"
 
 # Default target

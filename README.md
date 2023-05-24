@@ -49,3 +49,13 @@ Server runs on PORT 3000
 ## Client
 
 Client run on PORT 8080
+
+## Mysql
+
+Navigate through mysql database
+
+``` bash
+  make mysql
+  mysql -u sample_database -p
+  pasword: database
+```

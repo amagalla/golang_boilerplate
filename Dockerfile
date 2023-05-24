@@ -6,7 +6,8 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 RUN go install github.com/githubnemo/CompileDaemon
-RUN go get github.com/gin-gonic/gin
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.8.0/wait /wait
+RUN chmod +x /wait
 
 COPY . .
 

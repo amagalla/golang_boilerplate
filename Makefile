@@ -1,6 +1,7 @@
 .PHONY: all clean build run stop test docker-build docker-run docker-stop docker-build-compose npm
 
 APP_NAME := main
+NODE_MODULES := node_modules
 APP_SRC := main.go
 APP_PORT := 3000
 DOCKER_COMPOSE := docker-compose.yml
@@ -11,7 +12,7 @@ build-local:
 
 # Clean build artifacts
 clean:
-	rm -f $(APP_NAME)
+	rm -rf $(APP_NAME) $(NODE_MODULES)
 
 # Run the server locally
 run-local:
@@ -70,6 +71,7 @@ help:
 	@echo "  stop                - Stop the Docker containers"
 	@echo "  test                - Run tests"
 	@echo "  all                 - Clean, build, test, and run using Docker"
+	@echo "  npm		      - installs node dependencies"
 	@echo "  help                - Show this help message"
 
 # Default target

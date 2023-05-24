@@ -1,6 +1,7 @@
 package main
 
 import (
+	"golang_boilerplate/pckg/db"
 	"net/http"
 	"os"
 
@@ -8,6 +9,10 @@ import (
 )
 
 func main() {
+
+	// mysql connection
+	db.InitDB()
+
 	router := gin.Default()
 
 	// Set trusted proxy

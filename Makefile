@@ -2,7 +2,7 @@
 
 APP_NAME := main
 APP_SRC := main.go
-APP_PORT := 8080
+APP_PORT := 3000
 DOCKER_COMPOSE := docker-compose.yml
 
 # Build the application

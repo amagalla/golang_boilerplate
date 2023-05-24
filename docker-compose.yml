@@ -5,8 +5,8 @@ services:
     build: .
     image: server
     ports:
-      - "8080:8080" # Web Server
+      - "3000:3000"
     volumes:
       - ./:/app
     environment:
-      PORT: "8080"
+      PORT: "3000"

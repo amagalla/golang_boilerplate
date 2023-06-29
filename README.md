@@ -54,8 +54,8 @@ Client run on PORT 8080
 
 Navigate through mysql database
 
-``` bash
+```bash
   make mysql
   mysql -u sample_database -p
-  pasword: database
+  pasword: sample
 ```

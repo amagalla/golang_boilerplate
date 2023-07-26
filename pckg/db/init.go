@@ -36,3 +36,7 @@ func InitDB() {
 
 	fmt.Println("Connected to mysql...")
 }
+
+func GetDB() *sql.DB {
+	return db
+}

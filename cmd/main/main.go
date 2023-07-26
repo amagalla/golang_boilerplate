@@ -1,10 +1,11 @@
 package main
 
 import (
+	"golang_boilerplate/cmd/main/routes"
 	"golang_boilerplate/pckg/db"
-	"net/http"
 	"os"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,14 +16,12 @@ func main() {
 
 	router := gin.Default()
 
+	router.Use(cors.Default())
+
 	// Set trusted proxy
 	router.SetTrustedProxies([]string{"127.0.0.1"})
 
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello, World!",
-		})
-	})
+	routes.RegisterRoutes(router)
 
 	port := os.Getenv("PORT")
 	if port == "" {
